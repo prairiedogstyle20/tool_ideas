@@ -9,6 +9,7 @@ import argparse
 import json
 import os
 import logging
+import re
 
 class bcolors:
     CYAN = '\033[96m'
@@ -20,8 +21,12 @@ class bcolors:
     BLUE = '\033[34m'
 
 def get_users():
+    valid_user = re.compile('\W')
     users = os.listdir('/var/cpanel/users/')
     users.remove('system')
+    for user in users:
+        if valid_user.match(user) != None:
+            users.remove(user)            
     return users
 
 #  
