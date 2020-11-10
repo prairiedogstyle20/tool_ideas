@@ -25,7 +25,9 @@ def get_users():
     users = os.listdir('/var/cpanel/users/')
     users.remove('system')
     for user in users:
-        if valid_user.match(user) != None:
+        print(user)
+        if valid_user.search(user) != None:
+            print(user)
             users.remove(user)            
     return users
 
