@@ -21,15 +21,14 @@ class bcolors:
     BLUE = '\033[34m'
 
 def get_users():
-    valid_user = re.compile('\W')
+    check_user = re.compile('\W')
     users = os.listdir('/var/cpanel/users/')
     users.remove('system')
+    valid_users = []
     for user in users:
-        print(user)
-        if valid_user.search(user) != None:
-            print(user)
-            users.remove(user)            
-    return users
+        if check_user.search(user) == None:
+            valid_users.append(user)            
+    return valid_users
 
 #  
 # Method parses email_accounts.json file for each user 
