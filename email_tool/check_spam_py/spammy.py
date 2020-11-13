@@ -72,10 +72,9 @@ def get_email_accounts():
          if os.path.getsize(email_file) != 0:
             with open(email_file) as f:
                 user_data = parse_cp_email(f)
-                data[user] = user_data
-                
+                data[user] = user_data                
          else:
-            print(f'{bcolors.CYAN}The user {user} has: \n {bcolors.ENDC} {bcolors.RED} No Email Account {bcolors.ENDC}')            
+            data[user] = None
     report_all_email(data)
 #   
 # Method prints the contents of config files for email routing
