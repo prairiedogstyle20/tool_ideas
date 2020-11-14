@@ -52,11 +52,11 @@ def report_all_email(data):
             print(f'{bcolors.RED} No Email Account {bcolors.ENDC}')            
         else:
             for domain in data.get(user).keys():
+                print(f'{bcolors.YELLOW} \t {domain} has: \n {bcolors.ENDC}')
                 tmpData = data.get(user).get(domain)
-                if tmpData == {}:
-                    print(f'{bcolors.RED} {domain} has No Email Accounts')
+                if len(tmpData) == 0 :
+                    print(f' \t\t {bcolors.RED} No Email Accounts {bcolors.ENDC} \n')
                 else:
-                    print(f'{bcolors.YELLOW} \t {domain} has: \n {bcolors.ENDC}')
                     for each in tmpData:
                         print(f'{bcolors.GREEN} \t\t{each}@{domain} \n {bcolors.ENDC}')
 
@@ -111,12 +111,9 @@ def general_exim_parser():
 def generate_help():
      parser = argparse.ArgumentParser(prog='Spammy',description='Spammy is the spam assasin we deserve')
      parser.add_argument('-a','--all_email',action='store_true',
-     help='This message shows the same information')
+     help='Prints all email accounts based on user and domain')
      parser.add_argument('-r','--email_routing', action='store_true', 
      help='prints the email routing for all domains')
-     #parser.add_argument('--user', help='This will show all email for a email user')
-     #parser.add_argument('--since', help='shows email totals from time frame provided until present')
-     #parser.add_argument('--from', help='select emails with specific FROM values')
      args = parser.parse_args()
      return args
 
