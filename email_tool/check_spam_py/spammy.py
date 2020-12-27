@@ -1,9 +1,9 @@
-#! /bin/python3
+#! /opt/imh-python/bin/python3
 
 #Spammy is a simple python script to get relevant information about email 
 # Note: There are two operational modes
 # - get all mail dir sizes
-# - get email connection settings from each server
+# - get email routing for all domains
 # - get 
 import argparse
 import json
@@ -11,6 +11,13 @@ import os
 import logging
 import re
 
+# description: This is a simple classes that defines all the basic colors
+#              for bash terminal text highlighting. There is also the 
+#              special character (ENDC) that ends the usage of the current color
+#              and returns to the default settings. This contains the basic color
+#              options and can be added to easily.
+#
+#
 class bcolors:
     CYAN = '\033[96m'
     GREEN = '\033[92m'
@@ -20,6 +27,16 @@ class bcolors:
     YELLOW = '\033[33m'
     BLUE = '\033[34m'
 
+# input: predfined directory '/var/cpanel/users/'
+# output: array of users that doesn't include the system user
+# description: validate user name againts a precompiled regular expression
+#              small performance benifit from having the hash already created
+#              for the regular experssion. I chose to use the /var/cpanel/users/
+#              instead of the /etc/trueuserdomains because offically that is the 
+#              correct location to look per cPanel docs. The \W regex is for 
+#              is a character from a-z, A-Z, 0-9, including the _ (underscore) character.
+#
+#
 def get_users():
     check_user = re.compile('\W')
     users = os.listdir('/var/cpanel/users/')
@@ -29,7 +46,9 @@ def get_users():
         if check_user.search(user) == None:
             valid_users.append(user)            
     return valid_users
-#
+
+# input: fullpath to cPanel Json file
+# output:  
 # Method takes list of users and returns list of email accounts
 # by parsing the Json in email_accounts.json 
 # Returns a dictionary of domain
@@ -45,6 +64,16 @@ def parse_cp_email(jsonFile):
             continue
     return acct_map        
 
+#
+# input: nested dictionary (user -> domain -> email_addr) 
+# return: nothing
+# description: report method that prints all email accounts for the cPanel 
+#              accounts on the server based on the order of the nested data
+#              structure that is taken as input.
+#
+# notes: should the spacing and coloring be placed in different methods ? 
+#              
+#
 def report_all_email(data):
     for user in data.keys():
         print(f'{bcolors.CYAN}The user {user} has: \n {bcolors.ENDC}')
@@ -58,7 +87,7 @@ def report_all_email(data):
                     print(f' \t\t {bcolors.RED} No Email Accounts {bcolors.ENDC} \n')
                 else:
                     for each in tmpData:
-                        print(f'{bcolors.GREEN} \t\t{each}@{domain} \n {bcolors.ENDC}')
+                        pint(f'{bcolors.GREEN} \t\t{each}@{domain} \n {bcolors.ENDC}')
 
 # 
 # Method parses email_accounts.json file for each user 
