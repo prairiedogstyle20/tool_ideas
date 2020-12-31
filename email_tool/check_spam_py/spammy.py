@@ -1,4 +1,5 @@
 #! /opt/imh-python/bin/python3
+# coding: utf-8
 
 #Spammy is a simple python script to get relevant information about email 
 # Note: There are two operational modes
@@ -48,10 +49,9 @@ def get_users():
     return valid_users
 
 # input: fullpath to cPanel Json file
-# output:  
-# Method takes list of users and returns list of email accounts
-# by parsing the Json in email_accounts.json 
-# Returns a dictionary of domain
+# output: nested dictionary (user -> domain -> email_addr) 
+# description: Method takes list of users and returns list of email accounts
+#              by parsing the Json in email_accounts.json 
 #
 def parse_cp_email(jsonFile):
     acct_map = {}
@@ -66,7 +66,7 @@ def parse_cp_email(jsonFile):
 
 #
 # input: nested dictionary (user -> domain -> email_addr) 
-# return: nothing
+# output: nothing
 # description: report method that prints all email accounts for the cPanel 
 #              accounts on the server based on the order of the nested data
 #              structure that is taken as input.
@@ -129,6 +129,11 @@ def get_email_routing():
             print(f"{bcolors.GREEN}{domain}{bcolors.ENDC}")
     g.close()
 
+# input:
+# output:
+# description:
+#
+#
 def general_exim_parser():
     exim_log = '/var/log/exim_main_log'
 
@@ -137,6 +142,35 @@ def general_exim_parser():
             pass
     f.close()
 
+# input:
+# output:
+# description: 
+#
+#
+def get_email_acount_size():
+    pass
+
+
+# input:
+# output:
+# description: 
+#
+#
+def get_total_email_from_dirs():
+    pass
+
+# input:
+# output:
+# description: 
+#
+#
+def get_all_email_account_sizes():
+    pass
+
+# input:
+# output:
+# description:
+#
 def generate_help():
      parser = argparse.ArgumentParser(prog='Spammy',description='Spammy is the spam assasin we deserve')
      parser.add_argument('-a','--all_email',action='store_true',
