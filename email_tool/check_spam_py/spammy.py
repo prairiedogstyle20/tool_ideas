@@ -87,7 +87,7 @@ def report_all_email(data):
                     print(f' \t\t {bcolors.RED} No Email Accounts {bcolors.ENDC} \n')
                 else:
                     for each in tmpData:
-                        pint(f'{bcolors.GREEN} \t\t{each}@{domain} \n {bcolors.ENDC}')
+                        print(f'{bcolors.GREEN} \t\t{each}@{domain} \n {bcolors.ENDC}')
 
 # 
 # Method parses email_accounts.json file for each user 
