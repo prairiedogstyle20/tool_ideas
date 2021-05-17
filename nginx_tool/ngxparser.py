@@ -44,22 +44,34 @@ class Ngxparser:
 #
 def gen_help():
     parser = argparse.ArgumentParser(prog='Ngxparser', description ='Ngxparser helps analyze what Nginx is doing')
+    
+    #parser.add_argument('-h',action='store_true',
+    #help='Print the help message for Ngxparser')
 
     parser.add_argument('-ip',action='store_true',
     help='Print requests made base on IP address')
 
-    parser.add_argument('-h', action='store_true',
+    parser.add_argument('--hour', action='store_true',
     help='Print results based on hourly rates')
     
     parser.add_argument('--since', action='store_true',
     help='Print results based on timedate object in format to match Nginx config')
 
-def main():
-    args = generate_help()
-    print (args)
-    switch (args) {
-        case
-    }
-if __name__ == "__main__":
-    main()
+    parser.add_argument('--access-log', action='store_true',
+    help='overide the default location for Nginx access log')
+
+    parser.add_argument('--error-log', action='store_true',
+    help='overide the default location for the Nginx error log')
+
+    parser.add_argument('-o','--output', action='store_true',
+    help='set a file for output of results instead of std out')
     
+    args = parser.parse_args()
+    return args
+
+def main():
+    args = gen_help()
+    print (args)
+
+if __name__ == "__main__":
+    main()    
