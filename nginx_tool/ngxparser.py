@@ -34,7 +34,7 @@ class Bcolors:
 #
 class Ngxparser:
 
-    def __init__(self, acc_log='/var/log/nginx/access_log', err_log='/var/log/nginx/error_log', mode):
+    def __init__(self, mode, acc_log='/var/log/nginx/access_log', err_log='/var/log/nginx/error_log'):
         self.acc_log=acc_log
         self.err_log=err_log
 
@@ -74,7 +74,7 @@ def gen_help():
     args = parser.parse_args()
     return args
 
-def mcription: This is a simple classes that defines all the basic colors# description: This is a simple classes that defines all the basic colors# description: This is a simple classes that defines all the basic colors# description: This is a simple classes that defines all the basic colors):
+def main():
     args = gen_help()
     print (args)
 
