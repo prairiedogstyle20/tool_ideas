@@ -34,12 +34,46 @@ class Bcolors:
 #
 class Ngxparser:
 
-    def __init__(self, mode, acc_log='/var/log/nginx/access_log', err_log='/var/log/nginx/error_log'):
+    def __init__(self, mode, acc_log='/var/log/nginx/access.log', err_log='/var/log/nginx/error_log'):
         self.acc_log=acc_log
         self.err_log=err_log
 
-    def get_ip_count():
+    def get_ip_count(self):
         pass
+    
+    # input: single line from nginx access log
+    # output: list of field values 
+    # description: This method seperates the log file line into distinct values
+    # that are used in analysis reports later
+    def split_field_values(self, data):
+
+        valid_http_methods = ["GET","HEAD","POST","PUT","PATCH","DELETE","CONNECT","OPTIONS","TRACE"]
+
+        temp_field_values = data.split('\"')
+        ip_time_values = field_values[0].split()
+        request_value = field_values[1]
+        
+        for each in valid_http_methods:
+            if each in field_value[1]:
+
+
+        print (f"IP = {ip_time_values[0]}")
+        print (f"Request = {field_values[1]}",'\n')
+        return 
+        print (f"date = {field_values[3]}")
+        print (f"request = {field_values[6]}")
+        print (f"response_code = {field_values[8]}")
+        print (f"domain = {field_values[27]}")
+        return field_values
+
+    def parse_acc_file(self):
+        try:
+            with open(self.acc_log) as f:
+                for line in f:
+                    #print (line)
+                    self.split_field_values(line)
+        except IOError:
+            print (f'There is no file named {self.acc_log}')
 
 
 # input:
@@ -50,9 +84,6 @@ class Ngxparser:
 def gen_help():
     parser = argparse.ArgumentParser(prog='Ngxparser', description ='Ngxparser helps analyze what Nginx is doing')
     
-    #parser.add_argument('-h',action='store_true',
-    #help='Print the help message for Ngxparser')
-
     parser.add_argument('-ip',action='store_true',
     help='Print requests made base on IP address')
 
@@ -77,6 +108,8 @@ def gen_help():
 def main():
     args = gen_help()
     print (args)
+    testing = Ngxparser(0)
+    testing.parse_acc_file()
 
 if __name__ == "__main__":
     main()    
